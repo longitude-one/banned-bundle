@@ -1,0 +1,3 @@
+services:
+  LongitudeOne\BannedBundle\Security\:
+    resource: '../src/Security'

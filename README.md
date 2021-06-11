@@ -48,7 +48,7 @@ return [
 
 Configuration
 =============
-First of all, your user class should implement the BannedInterface, then add the stub method `isBanned`.
+First, your user class should implement the BannedInterface, then add the stub method `isBanned`.
 
 Example
 -------
@@ -91,7 +91,7 @@ Add the security layer:
 If you don't use flex, add the UserChecker to your security config:
 
 ```yaml
-{}
+# config/security.yaml
 security:
   ...
   firewalls:
