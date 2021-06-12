@@ -1,6 +1,6 @@
 <?php
 
-namespace LongitudeOne\BannedBundle;
+namespace LongitudeOne\BannedBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
