@@ -1,0 +1,4 @@
+services:
+  lo_banned.user_checker:
+    public: true
+    alias: LongitudeOne\BannedBundle\Security\UserChecker
