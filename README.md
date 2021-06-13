@@ -2,7 +2,7 @@ Banned bundle for Symfony
 =========================
 
 LongitudeOne\BannedBundle is a very small bundle for Symfony framework. 
-It disallows banned users to login on your application. 
+Banned users won't be able to login on your application. 
 
 Installation
 ============
@@ -86,9 +86,9 @@ class User implements BannedInterface, UserInterface
     //...    
 }
 ```
-Add the security layer:
+Step2, configure the security layer:
 
-If you don't use flex, add the UserChecker to your security config:
+If you don't use flex, add the UserChecker service to your security config:
 
 ```yaml
 # config/security.yaml
@@ -98,6 +98,7 @@ security:
     ...
     main:
       ...
-      user_checker: LongitudeOne\BannedBundle\Security\UserChecker
+      user_checker: lo_banned.user_checker
 ```
 
+Jobs done!
