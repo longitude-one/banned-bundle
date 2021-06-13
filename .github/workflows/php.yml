@@ -28,9 +28,6 @@ jobs:
       - name: Echo PHP version
         run: php -v
 
-      - name: Export Symfony version ${{ matrix.symfony }}
-        run: export SYMFONY_REQUIRE=${{ matrix.symfony }}
-
       - name: Install symfony/flex
         run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
 
@@ -47,7 +44,7 @@ jobs:
             ${{ runner.os }}-php-${{ matrix.php }}-symfony-${{ matrix.symfony }}
 
       - name: Composer update with PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
-        run: composer update --prefer-dist --no-progress
+        run: SYMFONY_REQUIRE=${{ matrix.symfony }} composer update --prefer-dist --no-progress
 
       - name: Run test suite on PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
         run: composer run-script test
