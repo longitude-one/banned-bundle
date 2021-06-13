@@ -1,0 +1,26 @@
+language: php
+sudo: false
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.4
+      env: SYMFONY_VERSION=4.4
+    - php: 7.4
+      env: SYMFONY_VERSION=5.2
+    - php: 7.4
+      env: SYMFONY_VERSION=5.3
+    - php: 8.0
+      env: SYMFONY_VERSION=5.2
+    - php: 8.0
+      env: SYMFONY_VERSION=5.3
+
+install:
+  - SYMFONY_VERSION=${SYMFONY_VERSION} composer update --prefer-dist --no-interaction
+
+script:
+  - composer validate --strict --no-check-lock
+  - composer run-script test
