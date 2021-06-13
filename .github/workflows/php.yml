@@ -13,24 +13,11 @@ jobs:
         operating-system: [ ubuntu-latest ] #, windows-latest ]
         php: [ '7.4', '8.0' ]
         symfony: ['4.4', '5.2', '5.3']
-        include:
-          # includes a new variable of npm with a value of 6
-          # for the matrix leg matching the os and version
+        exclude:
+          # excludes symfony 4.4 on linux-php-7.4
           - os: ubuntu-latest
-            php: '7.4'
+            php: '8.0'
             symfony: '4.4'
-          - os: ubuntu-latest
-            php: '7.4'
-            symfony: '5.2'
-          - os: ubuntu-latest
-            php: '7.4'
-            symfony: '5.3'
-          - os: ubuntu-latest
-            php: '8.0'
-            symfony: '5.2'
-          - os: ubuntu-latest
-            php: '8.0'
-            symfony: '5.3'
     name: With PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
     steps:
       - uses: actions/checkout@master
