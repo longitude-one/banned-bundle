@@ -34,10 +34,13 @@ jobs:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php-
+            ${{ runner.os }}-php-${{ matrix.php }}
 
       - name: Minimum supported dependencies with the latest and PHP ${{ matrix.php }}
         run: composer update --prefer-dist --no-progress
 
       - name: Run test suite on PHP ${{ matrix.php }}
         run: composer run-script test
+
+      - name: PHP-CS-FIXER test on ${{ matrix.php }}
+        run: composer run-script fix
