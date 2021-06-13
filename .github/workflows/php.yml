@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ ubuntu-latest ] #, windows-latest ]
-        php: [ '7.4', '8.4' ]
+        php: [ '7.4', '8.0' ]
     name: On ${{ matrix.operating-system }} with PHP ${{ matrix.php }}
     steps:
       - uses: actions/checkout@master
