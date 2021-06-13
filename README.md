@@ -1,4 +1,4 @@
-Banned bundle for Symfony
+Banned bundle for Symfony [![PHP Composer](https://github.com/longitude-one/banned-bundle/actions/workflows/php.yml/badge.svg)](https://github.com/longitude-one/banned-bundle/actions/workflows/php.yml)
 =========================
 
 LongitudeOne\BannedBundle is a very small bundle for Symfony framework. 
