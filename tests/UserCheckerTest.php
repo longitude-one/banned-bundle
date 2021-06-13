@@ -1,5 +1,17 @@
 <?php
+/**
+ * This file is part of the Banned Bundle.
+ *
+ * PHP 7.4 | 8.0
+ *
+ * (c) Alexandre Tranchant <alexandre.tranchant@gmail.com>
+ * (c) Longitude One 2020 - 2021
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
+declare(strict_types=1);
 
 use LongitudeOne\BannedBundle\Entity\BannedInterface;
 use LongitudeOne\BannedBundle\Exception\BannedUserMessageAuthenticationException;
@@ -7,6 +19,9 @@ use LongitudeOne\BannedBundle\Security\UserChecker;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @internal
+ */
 class UserCheckerTest extends TestCase
 {
     private UserChecker $userChecker;
@@ -52,6 +67,9 @@ class UserCheckerTest extends TestCase
     }
 }
 
+/**
+ * @internal
+ */
 class StandardUser implements UserInterface
 {
     private bool $banned;
@@ -60,21 +78,16 @@ class StandardUser implements UserInterface
     {
         $this->banned = $banned;
     }
-    public function isBanned(): bool
-    {
-        return $this->banned;
-    }
 
     public function eraseCredentials()
     {
     }
 
-    public function getRoles()
+    public function getPassword()
     {
-        // TODO: Implement getRoles() method.
     }
 
-    public function getPassword()
+    public function getRoles()
     {
     }
 
@@ -91,11 +104,19 @@ class StandardUser implements UserInterface
     {
     }
 
+    public function isBanned(): bool
+    {
+        return $this->banned;
+    }
+
     public function __call(string $name, array $arguments)
     {
     }
 }
 
+/**
+ * @internal
+ */
 class BannedUser extends StandardUser implements BannedInterface, UserInterface
 {
 }
