@@ -12,8 +12,8 @@ jobs:
       matrix:
         operating-system: [ ubuntu-latest ] #, windows-latest ]
         php: [ '7.4', '8.0' ]
-        symfony: ['4.4', '5.0', '5.1', '5.2', '5.3']
-    name: On ${{ matrix.operating-system }} with PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
+        symfony: ['4.4', '5.2', '5.3']
+    name: With PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
     steps:
       - uses: actions/checkout@master
 
@@ -25,16 +25,19 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
+      - name: Echo PHP version
+        run: php -v
+
       - name: Export Symfony version ${{ matrix.symfony }}
         run: export SYMFONY_REQUIRE=${{ matrix.symfony }}
 
       - name: Install symfony/flex
         run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
 
-      - name: Validate composer.json with ${{ matrix.php }}
+      - name: Validate composer.json with ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
         run: composer validate --strict
 
-      - name: Cache Composer packages with ${{ matrix.php }}
+      - name: Cache Composer packages with ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
         id: composer-cache
         uses: actions/cache@v2
         with:
@@ -43,11 +46,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php }}-symfony-${{ matrix.symfony }}
 
-      - name: Minimum supported dependencies with the latest and PHP ${{ matrix.php }}
+      - name: Composer update with PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
         run: composer update --prefer-dist --no-progress
 
-      - name: Run test suite on PHP ${{ matrix.php }}
+      - name: Run test suite on PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
         run: composer run-script test
 
-      - name: PHP-CS-FIXER test on ${{ matrix.php }}
+      - name: PHP-CS-FIXER test on ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
         run: composer run-script fix
