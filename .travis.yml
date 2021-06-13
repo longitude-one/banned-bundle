@@ -18,6 +18,7 @@ matrix:
     - php: 8.0
       env: SYMFONY_VERSION=5.3
 
+
 install:
   - SYMFONY_VERSION=${SYMFONY_VERSION} composer update --prefer-dist --no-interaction
 
