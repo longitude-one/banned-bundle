@@ -15,7 +15,7 @@ jobs:
         symfony: ['4.4', '5.2', '5.3']
         exclude:
           # excludes symfony 4.4 on linux-php-7.4
-          - os: ubuntu-latest
+          - operating-system: ubuntu-latest
             php: '8.0'
             symfony: '4.4'
     name: With PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
