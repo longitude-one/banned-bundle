@@ -12,7 +12,8 @@ jobs:
       matrix:
         operating-system: [ ubuntu-latest ] #, windows-latest ]
         php: [ '7.4', '8.0' ]
-    name: On ${{ matrix.operating-system }} with PHP ${{ matrix.php }}
+        symfony: ['4.4', '5.0', '5.1', '5.2', '5.3']
+    name: On ${{ matrix.operating-system }} with PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
     steps:
       - uses: actions/checkout@master
 
@@ -24,6 +25,12 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
+      - name: Export Symfony version ${{ matrix.symfony }}
+        run: export SYMFONY_REQUIRE=${{ matrix.symfony }}
+
+      - name: Install symfony/flex
+        run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
+
       - name: Validate composer.json with ${{ matrix.php }}
         run: composer validate --strict
 
@@ -34,7 +41,7 @@ jobs:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php }}
+            ${{ runner.os }}-php-${{ matrix.php }}-symfony-${{ matrix.symfony }}
 
       - name: Minimum supported dependencies with the latest and PHP ${{ matrix.php }}
         run: composer update --prefer-dist --no-progress
