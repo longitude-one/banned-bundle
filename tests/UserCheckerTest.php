@@ -44,7 +44,7 @@ class UserCheckerTest extends TestCase
     {
         self::expectException(BannedUserMessageAuthenticationException::class);
         self::expectExceptionCode(0);
-        self::expectExceptionMessage('error.user-banned');
+        self::expectExceptionMessage('error.banned');
         $user = new BannedUser(true);
         $this->userChecker = new UserChecker();
         $this->userChecker->checkPreAuth($user);
