@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class BannedUserMessageAuthenticationException extends CustomUserMessageAuthenticationException
 {
-    public const MESSAGE_USER_BANNED = 'error.user-banned';
+    public const MESSAGE_USER_BANNED = 'error.banned';
 
     public function __construct(UserInterface $user)
     {
