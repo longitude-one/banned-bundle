@@ -65,13 +65,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 // add the interface
 class User implements BannedInterface, UserInterface
 {
-    //Add a private method
+    //Add a private property
     private bool $banned = false;
 
-    //Your getter can be improved to avoid that an admin ban another admin.        
+    //Your getter can be improved to avoid that an admin bans another one.        
     public function isBanned(): bool
     {
-        //In this example admin cannot be banned
+        //In this example admins cannot be banned
         return $this->isBanned() and !in_array('ROLE_ADMIN', $this->getRoles());
     }
     
@@ -88,7 +88,7 @@ class User implements BannedInterface, UserInterface
 ```
 Step2, configure the security layer:
 
-If you don't use flex, add the UserChecker service to your security config:
+Add the UserChecker service to your security config:
 
 ```yaml
 # config/security.yaml
