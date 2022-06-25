@@ -55,7 +55,7 @@ return (new PhpCsFixer\Config())
                 'method_public_static', 'method_protected_static', 'method_private_static', 'method_static',
                 'method_public', 'method_protected', 'method_private', 'method', 'magic',
             ],
-            'sortAlgorithm' => 'alpha',
+            'sort_algorithm' => 'alpha',
         ],
         'linebreak_after_opening_tag' => true,
         // 'modernize_types_casting' => true,
