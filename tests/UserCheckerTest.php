@@ -87,8 +87,9 @@ class StandardUser implements UserInterface
     {
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
+        return [];
     }
 
     public function getSalt()
