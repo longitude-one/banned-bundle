@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.operating-system }}
+    name: With PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }} and ${{ matrix.operating-system }}
     strategy:
       matrix:
         operating-system: [ ubuntu-latest, windows-latest ]
@@ -49,8 +50,6 @@ jobs:
             php: '8.0'
             symfony: '6.1.*'
 
-
-    name: With PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }} and ${{ matrix.operating-system }}
     steps:
       - uses: actions/checkout@master
 
@@ -61,27 +60,12 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          tools: flex
 
-      - name: Echo PHP version
-        run: php -v
-
-      - name: Install symfony/flex
-        run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
-
-      - name: Validate composer.json with ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
-        run: composer validate --strict
-
-      - name: Cache Composer packages with ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
-        id: composer-cache
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-${{ matrix.php }}-symfony-${{ matrix.symfony }}
-
-      - name: Composer update with PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
-        run: SYMFONY_REQUIRE=${{ matrix.symfony }} composer update --prefer-dist --no-progress
+      - name: Download dependencies
+        env:
+          SYMFONY_REQUIRE: ${{ matrix.symfony }}
+        uses: ramsey/composer-install@v1
 
       - name: Run test suite on PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
         run: composer run-script test
