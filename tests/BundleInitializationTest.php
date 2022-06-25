@@ -17,20 +17,22 @@ namespace LongitudeOne\BannedBundle\Tests;
 
 use LongitudeOne\BannedBundle\LongitudeOneBannedBundle;
 use LongitudeOne\BannedBundle\Security\UserChecker;
-use Nyholm\BundleTest\BaseBundleTestCase;
+use Nyholm\BundleTest\TestKernel;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @internal
  */
-class BundleInitializationTest extends BaseBundleTestCase
+class BundleInitializationTest extends KernelTestCase
 {
     public function testInitBundle(): void
     {
         // Boot the kernel.
-        $this->bootKernel();
+        $kernel = self::bootKernel();
 
         // Get the container
-        $container = $this->getContainer();
+        $container = $kernel->getContainer();
 
         // Test if you services exists
         $this->assertTrue($container->has('lo_banned.user_checker'));
@@ -38,12 +40,21 @@ class BundleInitializationTest extends BaseBundleTestCase
         $this->assertInstanceOf(UserChecker::class, $service);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function getBundleClass(): string
+    protected static function createKernel(array $options = []): KernelInterface
     {
-        return LongitudeOneBannedBundle::class;
+        /**
+         * @var TestKernel $kernel
+         */
+        $kernel = parent::createKernel($options);
+        $kernel->addTestBundle(LongitudeOneBannedBundle::class);
+        $kernel->handleOptions($options);
+
+        return $kernel;
+    }
+
+    protected static function getKernelClass(): string
+    {
+        return TestKernel::class;
     }
 
 //    public function testBundleWithDifferentConfiguration()
