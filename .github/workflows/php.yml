@@ -12,12 +12,15 @@ jobs:
       matrix:
         operating-system: [ ubuntu-latest ] #, windows-latest ]
         php: [ '7.4', '8.0' ]
-        symfony: ['4.4', '5.2', '5.3']
+        symfony: ['4.4', '5.4', '6.0']
         exclude:
           # excludes symfony 4.4 on linux-php-7.4
           - operating-system: ubuntu-latest
             php: '8.0'
             symfony: '4.4'
+          - operating-system: ubuntu-latest
+            php: '7.4'
+            symfony: '6.0'
     name: With PHP ${{ matrix.php }} and Symfony ${{ matrix.symfony }}
     steps:
       - uses: actions/checkout@master
