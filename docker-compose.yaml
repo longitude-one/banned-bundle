@@ -1,0 +1,12 @@
+version: '3.6'
+services:
+  php:
+    container_name: "banned-php"
+    restart: "no"
+    build:
+      context: ./docker/php
+    environment:
+      - APP_ENV=dev
+      - APP_SECRET=b5d7777dd56923a1951904f63f506666
+    volumes:
+      - .:/var/www
