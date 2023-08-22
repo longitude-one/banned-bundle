@@ -1,9 +1,7 @@
 FROM php:8-fpm-alpine
 
 #remove openssh-client when PR dmish-setting is accepted
-RUN apk --update --no-cache add bash zip # git openssh-client postgresql-dev icu-dev libxslt-dev zip libzip-dev npm yarn \
-#        && docker-php-ext-install pdo_pgsql intl opcache xsl zip \
-#        && docker-php-ext-enable pdo_pgsql intl opcache xsl zip
+RUN apk --update --no-cache add bash zip
 
 #Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

@@ -13,6 +13,8 @@
 
 declare(strict_types=1);
 
+namespace LongitudeOne\BannedBundle\Tests;
+
 use LongitudeOne\BannedBundle\Entity\BannedInterface;
 use LongitudeOne\BannedBundle\Exception\BannedUserMessageAuthenticationException;
 use LongitudeOne\BannedBundle\Security\UserChecker;
